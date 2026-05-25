@@ -1,0 +1,47 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Addressables
+ServerData/
+
+# Crash reports
+sysinfo.txt
+
+# Auto-generated
+*.apk
+*.aab
+*.ipa
+
+# JetBrains Rider
+.idea/
+
+# Unity cache
+*.pidb.meta
+
+# Optional large recordings
+Recordings/
