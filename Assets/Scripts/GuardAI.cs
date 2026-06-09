@@ -30,8 +30,8 @@ public class GuardAI : MonoBehaviour
     public LayerMask lineOfSightMask = ~0;
 
     [Header("Speeds")]
-    public float patrolSpeed = 2.5f;
-    public float chaseSpeed = 4.5f;
+    public float patrolSpeed = 2f;
+    public float chaseSpeed = 2.75f;
 
     [Header("Scene")]
     public bool restartWhenCaught = true;
@@ -167,30 +167,7 @@ public class GuardAI : MonoBehaviour
     bool CanSeePlayer()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-
-        if (distance > detectionRange)
-            return false;
-
-        PlayerHide playerHide = player.GetComponent<PlayerHide>();
-
-        if (playerHide != null && playerHide.isHidden)
-            return false;
-
-        Vector3 rayStart = transform.position + Vector3.up * 1.5f;
-        Vector3 rayEnd = player.position + Vector3.up * 1f;
-        Vector3 direction = (rayEnd - rayStart).normalized;
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(rayStart, direction, out hit, detectionRange, lineOfSightMask))
-        {
-            if (hit.transform.CompareTag("Player"))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return distance <= detectionRange;
     }
 
     void CatchPlayer()
