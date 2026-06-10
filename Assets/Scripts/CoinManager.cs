@@ -11,20 +11,23 @@ public class CoinManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        instance = this;
     }
 
     public void AddCoins(int amount)
     {
         coins += amount;
-        coinText.text = "Coins: " + coins;
 
-        if (ObjectiveManager.instance != null)
+        if (coinText != null)
         {
-            ObjectiveManager.instance.CoinCollected();
+            coinText.text = "Coins: " + coins;
+        }
+
+        ObjectivesUI objectivesUI = FindFirstObjectByType<ObjectivesUI>();
+
+        if (objectivesUI != null)
+        {
+            objectivesUI.CoinCollected();
         }
     }
 }

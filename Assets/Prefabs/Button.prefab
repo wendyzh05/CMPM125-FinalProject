@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2889465040383737482}
   - component: {fileID: 6438342842724803023}
   - component: {fileID: 4736006604989109625}
-  - component: {fileID: 5556132308597708185}
+  - component: {fileID: 1404473982825982453}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -128,9 +128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSwitch
   redMaterial: {fileID: 2100000, guid: 75b1b94151c3e7348a9ca83e54c7b86f, type: 2}
   greenMaterial: {fileID: 2100000, guid: a0118de1d926b844a95fd422413b473a, type: 2}
-  buttonSound: {fileID: 8300000, guid: 68df6cd24630c43428252c6a9c9ac251, type: 3}
+  buttonSound: {fileID: 0}
   isActivated: 0
---- !u!82 &5556132308597708185
+--- !u!82 &1404473982825982453
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,8 +141,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 68df6cd24630c43428252c6a9c9ac251, type: 3}
-  m_PlayOnAwake: 0
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -187,7 +187,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

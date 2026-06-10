@@ -18,4 +18,12 @@ public class MovingLaser : MonoBehaviour
 
         transform.position = startPosition + Vector3.up * yOffset;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            FindFirstObjectByType<GameManager>().LoseLife();
+        }
+    }
 }

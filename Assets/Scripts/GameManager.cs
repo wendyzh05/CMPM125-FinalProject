@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +9,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject winText;
     public GameObject caughtText;
+
+    public TMP_Text livesText;
+
+    public static int lives = 3;
 
     private CharacterController controller;
 
@@ -17,12 +23,30 @@ public class GameManager : MonoBehaviour
         if (winText != null) winText.SetActive(false);
         if (caughtText != null) caughtText.SetActive(false);
 
-        RespawnPlayer();
+        UpdateLivesText();
+        RespawnPlayer(false);
     }
 
-    public void RespawnPlayer()
+    public void LoseLife()
     {
-        if (caughtText != null) caughtText.SetActive(true);
+        lives--;
+        UpdateLivesText();
+
+        if (lives <= 0)
+        {
+            lives = 3;
+            SceneManager.LoadScene("GameOver");
+        }
+        else
+        {
+            RespawnPlayer(true);
+        }
+    }
+
+    public void RespawnPlayer(bool showCaughtText)
+    {
+        if (showCaughtText && caughtText != null)
+            caughtText.SetActive(true);
 
         if (controller != null) controller.enabled = false;
 
@@ -31,12 +55,26 @@ public class GameManager : MonoBehaviour
 
         if (controller != null) controller.enabled = true;
 
-        Invoke(nameof(HideCaughtText), 1f);
+        if (showCaughtText)
+            Invoke(nameof(HideCaughtText), 1f);
+    }
+
+    public void RespawnPlayer()
+    {
+        LoseLife();
     }
 
     void HideCaughtText()
     {
         if (caughtText != null) caughtText.SetActive(false);
+    }
+
+    void UpdateLivesText()
+    {
+        if (livesText != null)
+        {
+            livesText.text = "Lives: " + lives;
+        }
     }
 
     public void WinGame()

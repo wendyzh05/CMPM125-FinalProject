@@ -1,33 +1,18 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
-public class ObjectiveManager : MonoBehaviour
+public class ObjectivesUI : MonoBehaviour
 {
-    public static ObjectiveManager instance;
-
-    public TMP_Text objectiveText;
-
-    public bool buttonFound = false;
-    public bool escaped = false;
+    public TextMeshProUGUI objectivesText;
 
     public int coinsCollected = 0;
-    public int coinsRequired = 5;
+    public int coinsNeeded = 5;
 
-    public bool levelUsesCoins = false;
+    public bool buttonPressed = false;
+    public bool doorOpened = false;
 
-    private void Awake()
+    void Start()
     {
-        instance = this;
-    }
-
-    private void Start()
-    {
-        UpdateObjectives();
-    }
-
-    public void ButtonFound()
-    {
-        buttonFound = true;
         UpdateObjectives();
     }
 
@@ -37,32 +22,34 @@ public class ObjectiveManager : MonoBehaviour
         UpdateObjectives();
     }
 
-    public void Escaped()
+    public void SetButtonPressed()
     {
-        escaped = true;
+        buttonPressed = true;
         UpdateObjectives();
     }
 
-    public void UpdateObjectives()
+    public void SetDoorOpened()
     {
-        string objectives = "OBJECTIVES\n";
+        doorOpened = true;
+        UpdateObjectives();
+    }
 
-        objectives += buttonFound
-            ? "✓ Find the button\n"
-            : "☐ Find the button\n";
-
-        if (levelUsesCoins)
+    void UpdateObjectives()
+    {
+        if (objectivesText == null)
         {
-            if (coinsCollected >= coinsRequired)
-                objectives += $"✓ Collect Coins ({coinsRequired}/{coinsRequired})\n";
-            else
-                objectives += $"☐ Collect Coins ({coinsCollected}/{coinsRequired})\n";
+            Debug.LogWarning("Objectives Text is missing!");
+            return;
         }
 
-        objectives += escaped
-            ? "✓ Escape through the door"
-            : "☐ Escape through the door";
+        objectivesText.text =
+            (coinsCollected >= coinsNeeded ? "[X]" : "[ ]") +
+            " Collect 5 coins (" + coinsCollected + "/" + coinsNeeded + ")\n" +
 
-        objectiveText.text = objectives;
+            (buttonPressed ? "[X]" : "[ ]") +
+            " Press the button\n" +
+
+            (doorOpened ? "[X]" : "[ ]") +
+            " Open the door";
     }
 }
