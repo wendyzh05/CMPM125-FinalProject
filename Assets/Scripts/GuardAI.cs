@@ -14,7 +14,7 @@ public class GuardAI : MonoBehaviour
     public GameObject alertIcon;
 
     private float lastSeenTime;
-    public float memoryTime = 2f;
+    public float memoryTime = 0.75f;
 
     [Header("State")]
     public GuardState currentState = GuardState.Patrol;
@@ -36,6 +36,8 @@ public class GuardAI : MonoBehaviour
     [Header("Scene")]
     public bool restartWhenCaught = true;
     public float restartDelay = 1f;
+
+    public float maxChaseDistance = 15f;
 
     private NavMeshAgent agent;
     private Renderer rend;
@@ -127,7 +129,20 @@ public class GuardAI : MonoBehaviour
     void Chase()
     {
         agent.speed = chaseSpeed;
-        agent.SetDestination(player.position);
+
+        if (Time.time > nextUpdateTime)
+        {
+            nextUpdateTime = Time.time + 0.5f;
+            agent.SetDestination(player.position);
+        }
+        float distanceFromPatrol =
+            Vector3.Distance(transform.position, patrolPoints[0].position);
+
+        if (distanceFromPatrol > maxChaseDistance)
+        {
+            currentState = GuardState.Return;
+            return;
+        }
     }
 
     void Investigate()
