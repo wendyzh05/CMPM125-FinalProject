@@ -21,10 +21,10 @@ public class CoinManager : MonoBehaviour
     {
         coins += amount;
         coinText.text = "Coins: " + coins;
-    }
 
-    public int GetCoins()
-    {
-        return coins;
+        if (ObjectiveManager.instance != null)
+        {
+            ObjectiveManager.instance.CoinCollected();
+        }
     }
 }

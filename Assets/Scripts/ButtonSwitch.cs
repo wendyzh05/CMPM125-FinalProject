@@ -41,5 +41,10 @@ public class ButtonSwitch : MonoBehaviour
         {
             audioSource.PlayOneShot(buttonSound);
         }
+
+        if (ObjectiveManager.instance != null)
+        {
+            ObjectiveManager.instance.ButtonFound();
+        }
     }
 }
