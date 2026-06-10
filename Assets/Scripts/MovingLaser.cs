@@ -6,6 +6,7 @@ public class MovingLaser : MonoBehaviour
     public float moveSpeed = 2f;
 
     private Vector3 startPosition;
+    private bool hasHitPlayer = false;
 
     void Start()
     {
@@ -21,9 +22,26 @@ public class MovingLaser : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (hasHitPlayer) return;
+
         if (other.CompareTag("Player"))
         {
-            FindFirstObjectByType<GameManager>().LoseLife();
+            hasHitPlayer = true;
+
+            GameManager gameManager = FindFirstObjectByType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.LoseLife();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            hasHitPlayer = false;
         }
     }
 }

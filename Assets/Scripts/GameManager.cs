@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public static int lives = 3;
 
     private CharacterController controller;
+    private bool isLosingLife = false;
 
     void Start()
     {
@@ -29,18 +30,30 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
+        if (isLosingLife) return;
+
+        isLosingLife = true;
+
         lives--;
         UpdateLivesText();
 
         if (lives <= 0)
         {
-            lives = 3;
+            lives = 0;
+            UpdateLivesText();
+
             SceneManager.LoadScene("GameOver");
+            return;
         }
-        else
-        {
-            RespawnPlayer(true);
-        }
+
+        RespawnPlayer(true);
+
+        Invoke(nameof(ResetLifeCooldown), 1f);
+    }
+
+    void ResetLifeCooldown()
+    {
+        isLosingLife = false;
     }
 
     public void RespawnPlayer(bool showCaughtText)
@@ -72,9 +85,7 @@ public class GameManager : MonoBehaviour
     void UpdateLivesText()
     {
         if (livesText != null)
-        {
             livesText.text = "Lives: " + lives;
-        }
     }
 
     public void WinGame()
