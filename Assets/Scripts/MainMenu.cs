@@ -8,6 +8,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Level1");
     }
 
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void OpenCredits()
     {
         SceneManager.LoadScene("Credits");
